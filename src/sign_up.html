@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<p>新用户注册界面</p>
+<form action="" id="register">
+  <label>User name：<input type="text" name="name"></label><br>
+  <label>User _pwd：<input type="password" name="password"></label><br>
+  <input type="submit">
+</form>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  const $form = $('#register');
+  $form.on('submit',(event)=> {
+    event.preventDefault(); //记得阻止事件冒泡
+    const name = $form.find('input[name=name]').val();
+    const password = $form.find('input[name=password]').val();
+    $.ajax({
+      method: 'POST',
+      url: '/register',
+      contentType: 'text/json;charset=UTF-8',
+      data: JSON.stringify({name, password})   //name:name,password:password
+    }).then(()=>{
+      alert('注册成功');
+      location.href = '/sign_in.html';
+    },()=>{})
+  })
+</script>
+</html>

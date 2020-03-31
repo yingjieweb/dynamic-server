@@ -8,6 +8,29 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>登录页面</h1>
+  <h1>新用户注册界面</h1>
+  <form action="" id="signIn">
+    <label>User name：<input type="text" name="name"></label><br>
+    <label>User _pwd：<input type="password" name="password"></label><br>
+    <button type="submit">登录</button>
+  </form>
 </body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  const $form = $('#signIn');
+  $form.on('submit',(event)=> {
+    event.preventDefault(); //记得阻止事件冒泡
+    const name = $form.find('input[name=name]').val();
+    const password = $form.find('input[name=password]').val();
+    $.ajax({
+      method: 'POST',
+      url: '/sign_in',
+      contentType: 'text/json;charset=UTF-8',
+      data: JSON.stringify({name, password})   //name:name,password:password
+    }).then(()=>{
+      alert('登录成功');
+      location.href = '/home.html';
+    },()=>{})
+  })
+</script>
 </html>
